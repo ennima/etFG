@@ -3,7 +3,8 @@
   "config": {
     "db": "mysql",
     "front-end": "html",
-    "backend": "php"
+    "backend": "php",
+    "local_store":"C:\\xampp\\htdocs\\formGen\\"
   },
   "content": [
     {
@@ -16,6 +17,11 @@
       "name": "email",
       "type": "text_single",
       "size": "50"
+    },
+    {
+      "name": "choose",
+      "type": "button",
+      "value": "choose..."
     },
     {
       "name": "cuco",
