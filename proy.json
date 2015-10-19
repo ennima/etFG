@@ -2,6 +2,11 @@
   "name": "test",
   "config": {
     "db": "mysql",
+    "db_name":"test",
+    "db_server":"127.0.0.1",
+    "db_user":"root",
+    "db_pass":"",
+    "developer":"ennima1",
     "front-end": "html",
     "backend": "php",
     "local_store":"C:\\xampp\\htdocs\\formGen\\"

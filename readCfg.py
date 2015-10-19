@@ -8,26 +8,24 @@ def loadForm(jsonf):
 	return j
 
 
-def neighborhood(iterable):
-	iterator = iter(iterable)
-	prev = None
-	item = next(iterator)  # throws StopIteration if empty.
-	for next in iterator:
-		print("Here")
-		yield (prev,item,next)
-		prev = item
-		item = next
-	yield (prev,item,None)
-
 proy = loadForm("proy.json")
 print(proy['name'])
 
 
 insert_header = ""
+php_credits ="/*****************************\n 	Developer:"+proy['config']['developer']+"\n 	Agency:Miru Interactive \n******************************/\n\n"
 if(proy['config']['db'] == "mysql"):
+	#Make connect file
+	mysql_connect = "<?php \n"+php_credits+"$conn = new mysqli(\""+proy['config']['db_server']+"\", \""+proy['config']['db_user']+"\", \""+proy['config']['db_pass']+"\", \""+proy['config']['db_name']+"\"); \n"
+	mysql_connect += 'if ($conn->connect_error) { \n  die("Connection failed: " . $conn->connect_error); \n} \n ?> '
+	mysql_connect_file = open(proy['config']['local_store']+"connect.php",'w')
+	mysql_connect_file.write(mysql_connect)
+	mysql_connect_file.close()
+
 	insert_header = "("
 	print("Rendereando MYSQL queries and Table")
 	query_table = "CREATE TABLE "+proy['name']+" ("
+	query_table += "id int(3) unsigned zerofill not null auto_increment primary key,"
 	index = 0
 	for field in proy['content']:
 		if((index+1)<len(proy['content'])):
@@ -72,6 +70,7 @@ elif(proy['config']['db'] == "email"):
 
 if(proy['config']['backend']=="php"):
 	print("Creating Php backend")
+	
 	requestVars = ""
 	requestVars_array =[]
 	for field in proy['content']:
@@ -93,7 +92,16 @@ if(proy['config']['backend']=="php"):
 		if(i<len(requestVars_array)-1):
 			query_values+=","
 	print("query_values: ", query_values)
-	crud_insert = "'insert INTO `"+ proy['name'] + "` " + insert_header + " VALUES ("+query_values+")'"
+	crud_insert = "'INSERT INTO `"+ proy['name'] + "` " + insert_header + " VALUES ("+query_values+")'"
 	print(crud_insert)
+	#Make Insert Query File
+	
+	php_insert = "<?php \n"+php_credits+"require('connect.php'); \n"+requestVars+"\n \n$query_insert = "+crud_insert+"; \necho $query_insert; \n if ($conn->query($query_insert) === TRUE) { \n    echo \"New record created successfully\"; \n } else {\n    echo \"Error: \" . $query_insert . \"<br>\" . $conn->error;\n } \n$conn->close();\n?>"
+	php_insert_file = open(proy['config']['local_store']+"insert_"+proy['name']+".php",'w')
+	php_insert_file.write(php_insert)
+	php_insert_file.close()
+
+	crud_delete ="DELETE FROM `test` WHERE `Name` = 'name'"
+
 elif(proy['config']['backend']=="node"):
 	print("Creating Node backend")
