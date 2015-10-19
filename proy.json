@@ -1,0 +1,36 @@
+{
+  "name": "test",
+  "config": {
+    "db": "mysql",
+    "front-end": "html",
+    "backend": "php"
+  },
+  "content": [
+    {
+      "name": "Name",
+      "type": "text_single",
+      "size": "20",
+      "placeholder":"Nombre"
+    },
+    {
+      "name": "email",
+      "type": "text_single",
+      "size": "50"
+    },
+    {
+      "name": "cuco",
+      "type": "text_single",
+      "size": "50"
+    },
+    {
+      "name": "Mensaje",
+      "type": "textarea",
+      "size": "390"
+    },
+    {
+      "name": "Send",
+      "type": "submit",
+      "size": "20"
+    }
+  ]
+}
