@@ -1,5 +1,6 @@
 import os.path
 
+
 def leeConfiguracion(archivo):
 	if(os.path.exists(archivo)):
 		f = open(archivo)
