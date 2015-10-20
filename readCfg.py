@@ -57,8 +57,8 @@ if(proy['config']['db'] == "mysql"):
 			insert_header+=")"
 		
 			
-	print(query_table)
-	print("Inser: ",insert_header)
+	#print(query_table)
+	#print("Inser: ",insert_header)
 	tableFile = open(proy['config']['local_store']+"Table_"+proy['name']+".tab",'w')
 	tableFile.write(query_table)
 	tableFile.close()
@@ -74,26 +74,26 @@ if(proy['config']['backend']=="php"):
 	requestVars = ""
 	requestVars_array =[]
 	for field in proy['content']:
-		print (field)
+		#print (field)
 		if(field['type']=="submit")or(field['type']=="button"):
 			print("button")
 		else:
 			requestVars+="$field_"+field["name"]+" = $_REQUEST['"+field["name"]+"']; \n"
 			requestVars_array.append("$field_"+field["name"])
 
-	print (requestVars)
-	print(requestVars_array)
+	#print (requestVars)
+	#print(requestVars_array)
 
 	#Make CRUD Qeryes
 	query_values = ""
 	for i in range(0,len(requestVars_array)):
-		print("i: ",i,"  val: ",requestVars_array[i])
+		#print("i: ",i,"  val: ",requestVars_array[i])
 		query_values+="\"'."+requestVars_array[i]+".'\""
 		if(i<len(requestVars_array)-1):
 			query_values+=","
-	print("query_values: ", query_values)
+	#print("query_values: ", query_values)
 	crud_insert = "'INSERT INTO `"+ proy['name'] + "` " + insert_header + " VALUES ("+query_values+")'"
-	print(crud_insert)
+	#print(crud_insert)
 	#Make Insert Query File
 	
 	php_insert = "<?php \n"+php_credits+"require('connect.php'); \n"+requestVars+"\n \n$query_insert = "+crud_insert+"; \necho $query_insert; \n if ($conn->query($query_insert) === TRUE) { \n    echo \"New record created successfully\"; \n } else {\n    echo \"Error: \" . $query_insert . \"<br>\" . $conn->error;\n } \n$conn->close();\n?>"
@@ -105,3 +105,9 @@ if(proy['config']['backend']=="php"):
 
 elif(proy['config']['backend']=="node"):
 	print("Creating Node backend")
+
+if(proy['config']['frontend']=="html"):
+	print("Rendering Html Form")
+
+elif(proy['config']['frontend']=="ejs"):
+	print("Rendering Ejs Form View")

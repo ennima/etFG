@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "test1",
   "config": {
     "db": "mysql",
     "db_name":"test",
@@ -7,7 +7,7 @@
     "db_user":"root",
     "db_pass":"",
     "developer":"ennima1",
-    "front-end": "html",
+    "frontend": "html",
     "backend": "php",
     "local_store":"C:\\xampp\\htdocs\\formGen\\"
   },
