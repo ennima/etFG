@@ -84,12 +84,12 @@ if(proy['config']['backend']=="php"):
 	for field in proy['content']:
 		#print (field)
 		if('catalog' in field):
-			print("Hay CATALOGO: ",field['catalog']['name'])
+			#print("Hay CATALOGO: ",field['catalog']['name'])
 			print("Rendereando Catalogo ",field['catalog']['type'],proy['config']['db'])
 			if(proy['config']['db'] == "mysql"):
 				#Crear Tabla
 				catalog_table = "CREATE TABLE "+field['catalog']['name'] +" ("
-				print("CATALOGO TABLE: ",catalog_table)
+				#print("CATALOGO TABLE: ",catalog_table)
 
 				size_val = 0
 				for item in field['catalog']['list']:
@@ -105,16 +105,16 @@ if(proy['config']['backend']=="php"):
 					catalog_have_id = True
 					
 
-					print("Have Id: ",id_size," val:",size_val)
+					#print("Have Id: ",id_size," val:",size_val)
 					catalog_table += "id int("+str(id_size)+") not null primary key , val VARCHAR("+str(size_val)+"))"
 					
 					
 				else:
-					print("Haven't id")
+					#print("Haven't id")
 					catalog_have_id = False
 					catalog_table += "id int(3) unsigned zerofill not null auto_increment primary key , val VARCHAR("+str(size_val)+"))"
 
-				print(catalog_table)
+				#print(catalog_table)
 				f = open(path_sql+field['catalog']['name']+".tab","w")
 				f.write(catalog_table)
 				f.close()
@@ -141,7 +141,7 @@ if(proy['config']['backend']=="php"):
 					
 				#print(catalog_list_val)
 				insert_catalog+=catalog_list_val
-				print(insert_catalog)
+				#print(insert_catalog)
 				f = open(path_sql+field['catalog']['name']+"_contents.tab","w")
 				f.write(insert_catalog)
 				f.close()
