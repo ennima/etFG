@@ -1,4 +1,4 @@
-import json
+import json,os
 
 def loadForm(jsonf):
 	f = open(jsonf)
@@ -11,10 +11,18 @@ def loadForm(jsonf):
 proy = loadForm("proy.json")
 print(proy['name'])
 
+path_sql = proy['config']['local_store']+"sql\\"
+
+
 
 insert_header = ""
 php_credits ="/*****************************\n 	Developer:"+proy['config']['developer']+"\n 	Agency:Miru Interactive \n******************************/\n\n"
 if(proy['config']['db'] == "mysql"):
+	if(os.path.exists(path_sql)):
+		print("SQL Dir ok")
+	else:
+		os.mkdir(path_sql)
+
 	#Make connect file
 	mysql_connect = "<?php \n"+php_credits+"$conn = new mysqli(\""+proy['config']['db_server']+"\", \""+proy['config']['db_user']+"\", \""+proy['config']['db_pass']+"\", \""+proy['config']['db_name']+"\"); \n"
 	mysql_connect += 'if ($conn->connect_error) { \n  die("Connection failed: " . $conn->connect_error); \n} \n ?> '
@@ -59,7 +67,7 @@ if(proy['config']['db'] == "mysql"):
 			
 	#print(query_table)
 	#print("Inser: ",insert_header)
-	tableFile = open(proy['config']['local_store']+"Table_"+proy['name']+".tab",'w')
+	tableFile = open(path_sql+"Table_"+proy['name']+".tab",'w')
 	tableFile.write(query_table)
 	tableFile.close()
 
@@ -107,7 +115,7 @@ if(proy['config']['backend']=="php"):
 					catalog_table += "id int(3) unsigned zerofill not null auto_increment primary key , val VARCHAR("+str(size_val)+"))"
 
 				print(catalog_table)
-				f = open(proy['config']['local_store']+field['catalog']['name']+".tab","w")
+				f = open(path_sql+field['catalog']['name']+".tab","w")
 				f.write(catalog_table)
 				f.close()
 
@@ -134,7 +142,7 @@ if(proy['config']['backend']=="php"):
 				#print(catalog_list_val)
 				insert_catalog+=catalog_list_val
 				print(insert_catalog)
-				f = open(proy['config']['local_store']+field['catalog']['name']+"_contents.tab","w")
+				f = open(path_sql+field['catalog']['name']+"_contents.tab","w")
 				f.write(insert_catalog)
 				f.close()
 
