@@ -2,21 +2,21 @@
   "name": "test1",
   "config": {
     "db": "mysql",
-    "db_name":"test",
-    "db_server":"127.0.0.1",
-    "db_user":"root",
-    "db_pass":"",
-    "developer":"ennima1",
+    "db_name": "test",
+    "db_server": "127.0.0.1",
+    "db_user": "root",
+    "db_pass": "",
+    "developer": "ennima1",
     "frontend": "html",
     "backend": "php",
-    "local_store":"C:\\xampp\\htdocs\\formGen\\"
+    "local_store": "C:\\xampp\\htdocs\\formGen\\"
   },
   "content": [
     {
       "name": "Name",
       "type": "text_single",
       "size": "20",
-      "placeholder":"Nombre"
+      "placeholder": "Nombre"
     },
     {
       "name": "email",
@@ -32,6 +32,33 @@
       "name": "cuco",
       "type": "text_single",
       "size": "50"
+    },
+    {
+      "name": "opciones",
+      "type": "combo",
+      "size": "50",
+      "catalog": {
+        "name": "cat_opciones",
+        "type":"db",
+        "list": [
+          {
+            
+            "val": "opcion1"
+          },
+          {
+            
+            "val": "opcion2"
+          },
+          {
+            
+            "val": "opcion 3"
+          },
+          {
+            
+            "val": "opcion4  d"
+          }
+        ]
+      }
     },
     {
       "name": "Mensaje",

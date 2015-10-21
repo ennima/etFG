@@ -25,7 +25,7 @@ if(proy['config']['db'] == "mysql"):
 	insert_header = "("
 	print("Rendereando MYSQL queries and Table")
 	query_table = "CREATE TABLE "+proy['name']+" ("
-	query_table += "id int(3) unsigned zerofill not null auto_increment primary key,"
+	query_table += "id int(6) unsigned zerofill not null auto_increment primary key,"
 	index = 0
 	for field in proy['content']:
 		if((index+1)<len(proy['content'])):
@@ -33,11 +33,11 @@ if(proy['config']['db'] == "mysql"):
 			if(field['type']=='button'):
 				print("BOTON")
 			else:
-				query_table += field['name']+" "
-				insert_header+= "`"+field['name']+"`"
+				query_table += field['name'].lower()+" "
+				insert_header+= "`"+field['name'].lower()+"`"
 
 
-			if(field['type']=='text_single')or(field['type']=="textarea"):
+			if(field['type']=='text_single')or(field['type']=="textarea")or((field['type']=="combo")):
 				query_table += "VARCHAR("+field['size']+")"
 				
 			if(proy['content'][index+1]['type']=="submit"):
@@ -75,11 +75,75 @@ if(proy['config']['backend']=="php"):
 	requestVars_array =[]
 	for field in proy['content']:
 		#print (field)
+		if('catalog' in field):
+			print("Hay CATALOGO: ",field['catalog']['name'])
+			print("Rendereando Catalogo ",field['catalog']['type'],proy['config']['db'])
+			if(proy['config']['db'] == "mysql"):
+				#Crear Tabla
+				catalog_table = "CREATE TABLE "+field['catalog']['name'] +" ("
+				print("CATALOGO TABLE: ",catalog_table)
+
+				size_val = 0
+				for item in field['catalog']['list']:
+					#print(len(item['val']))
+					if(len(item['val'])>size_val):
+						size_val = len(item['val'])
+				size_val+=5
+				catalog_have_id = False
+				if('id' in field['catalog']['list'][0]):
+					
+					total_items = len(field['catalog']['list'])
+					id_size = len(str(total_items)) + 1
+					catalog_have_id = True
+					
+
+					print("Have Id: ",id_size," val:",size_val)
+					catalog_table += "id int("+str(id_size)+") not null primary key , val VARCHAR("+str(size_val)+"))"
+					
+					
+				else:
+					print("Haven't id")
+					catalog_have_id = False
+					catalog_table += "id int(3) unsigned zerofill not null auto_increment primary key , val VARCHAR("+str(size_val)+"))"
+
+				print(catalog_table)
+				f = open(proy['config']['local_store']+field['catalog']['name']+".tab","w")
+				f.write(catalog_table)
+				f.close()
+
+				if(catalog_have_id):
+					insert_catalog = "INSERT INTO "+field['catalog']['name']+" (id,val) VALUES "
+				else:
+					insert_catalog = "INSERT INTO "+field['catalog']['name']+" (val) VALUES "
+				catalog_list_val = ""
+				count = 0
+				for item in field['catalog']['list']:
+					#print("Cat: ",item)
+					if(catalog_have_id):
+						#print("("+item['id']+","+item['val']+")")
+						catalog_list_val += "("+item['id']+",\""+item['val']+"\")"
+					else:
+						#print("("+item['val']+")")
+						catalog_list_val += "(\""+item['val']+"\")"
+					count+=1
+					if(count<len(field['catalog']['list'])):
+						catalog_list_val+=","
+					else:
+						catalog_list_val+=";"
+					
+				#print(catalog_list_val)
+				insert_catalog+=catalog_list_val
+				print(insert_catalog)
+				f = open(proy['config']['local_store']+field['catalog']['name']+"_contents.tab","w")
+				f.write(insert_catalog)
+				f.close()
+
+
 		if(field['type']=="submit")or(field['type']=="button"):
 			print("button")
 		else:
-			requestVars+="$field_"+field["name"]+" = $_REQUEST['"+field["name"]+"']; \n"
-			requestVars_array.append("$field_"+field["name"])
+			requestVars+="$field_"+field["name"].lower()+" = $_REQUEST['"+field["name"].lower()+"']; \n"
+			requestVars_array.append("$field_"+field["name"].lower())
 
 	#print (requestVars)
 	#print(requestVars_array)
