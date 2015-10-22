@@ -6,18 +6,13 @@ def loadForm(jsonf):
 	#print(f)
 	f.close()
 	return j
-
-
-proy = loadForm("proy.json")
-print(proy['name'])
-
-path_sql = proy['config']['local_store']+"sql\\"
-
-
-
-insert_header = ""
-php_credits ="/*****************************\n 	Developer:"+proy['config']['developer']+"\n 	Agency:Miru Interactive \n******************************/\n\n"
-if(proy['config']['db'] == "mysql"):
+def pathValidation():
+	#Si no existe local_store crealo
+	if(os.path.exists(proy['config']['local_store'])):
+		print("local_store Dir ok")
+	else:
+		os.mkdir(proy['config']['local_store'])
+def db_mysql():
 	if(os.path.exists(path_sql)):
 		print("SQL Dir ok")
 	else:
@@ -71,12 +66,7 @@ if(proy['config']['db'] == "mysql"):
 	tableFile.write(query_table)
 	tableFile.close()
 
-elif(proy['config']['db'] == "mongo"):
-	print("Rendering Mongo Schema and CRUD functions")
-elif(proy['config']['db'] == "email"):
-	print("Rendereando envio por mail")
-
-if(proy['config']['backend']=="php"):
+def backend_php():
 	print("Creating Php backend")
 	
 	requestVars = ""
@@ -173,7 +163,27 @@ if(proy['config']['backend']=="php"):
 	php_insert_file.write(php_insert)
 	php_insert_file.close()
 
-	crud_delete ="DELETE FROM `test` WHERE `Name` = 'name'"
+	crud_delete ="DELETE FROM `test` WHERE `Name` = 'name'"	
+
+proy = loadForm("proy.json")
+print(proy['name'])
+pathValidation()
+path_sql = proy['config']['local_store']+"sql\\"
+insert_header = ""
+php_credits ="/*****************************\n 	Developer:"+proy['config']['developer']+"\n 	Agency:Miru Interactive \n******************************/\n\n"
+
+
+if(proy['config']['db'] == "mysql"):
+	db_mysql()
+
+elif(proy['config']['db'] == "mongo"):
+	print("Rendering Mongo Schema and CRUD functions")
+
+elif(proy['config']['db'] == "email"):
+	print("Rendereando envio por mail")
+	
+if(proy['config']['backend']=="php"):
+	backend_php()
 
 elif(proy['config']['backend']=="node"):
 	print("Creating Node backend")
