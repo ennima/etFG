@@ -21,14 +21,14 @@
       "especial_generator_path":"C:\\Users\\enrique.nieto\\Documents\\develops\\NewsM\\kernel\\especial"
     },
     {
-      "name": "email",
+      "name": "Nombre",
       "type": "text_single",
-      "size": "50"
+      "size": "40"
     },
     {
-      "name": "choose",
-      "type": "button",
-      "value": "choose..."
+      "name": "Fecha inicio",
+      "type": "date",
+      "value": "Input"
     },
     {
       "name": "cuco",

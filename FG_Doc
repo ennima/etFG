@@ -58,6 +58,24 @@ Data types
 						          }
 						        ]
 					        }
+	date: 
+		attrs: name, type, value
+
+		Genera un date picker y almacena un valor date en la db.
+		value: Indica la forma en la que se tomará el valor
+				- Input: El usuario debe introducir el dato
+				- Now: Al insertar un registro se introduce la fecha actual
+				- Default: Asigna un valor por default ej.Default:02/02/2015
+
+	time: 
+		attrs: name, type, value
+
+		Genera un time picker y almacena un valor date en la db.
+		value: Indica la forma en la que se tomará el valor
+				- Input: El usuario debe introducir el dato
+				- Now: Al insertar un registro se introduce la hora actual
+				- Default: Asigna un valor por default ej.Default:20:30:50
+
 	especial:
 		attrs: name, type, size, especial_generator, especial_generator_path
 
