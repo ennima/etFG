@@ -189,8 +189,16 @@ def db_mongo_node():
 
 	mongoose_schema = "var mongoose = require('mongoose');\nvar Schema = mongoose.Schema;\n"
 	schemaName = proy['name'].lower()+"_schema"
+	modelName = proy['name'].lower().title()+"s"
 	mongoose_schema += "var "+schemaName+" = new Schema({\n"
-	
+	for field in proy['content']:
+		print field['type']
+		if(field['type']=='button'):
+			pass
+		elif(field['type']=='button'):
+
+	mongoose_schema += "});\n"
+	mongoose_schema += "mongoose.model('"+modelName+"', "+schemaName+");"
 	print (mongoose_schema)
 proy = loadForm("proy2.json")
 print(proy['name'])

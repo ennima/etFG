@@ -26,14 +26,14 @@
       "size": "40"
     },
     {
-      "name": "Fecha inicio",
+      "name": "Fecha_Inicio",
       "type": "date",
       "value": "Input"
     },
     {
-      "name": "cuco",
-      "type": "text_single",
-      "size": "50"
+      "name": "Hora_Inicio",
+      "type": "time",
+      "size": "Input"
     },
     {
       "name": "opciones",
