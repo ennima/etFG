@@ -1,0 +1,110 @@
+FG Doc 0.5
+
+Data types
+
+	button:
+		attrs: name, type, value
+
+		Crea un boton con su handler.
+
+		example:   {
+				      "name": "choose",
+				      "type": "button",
+				      "value": "choose..."
+				    }
+	combo:
+		attrs: name, type, size, catalog
+
+		Equivale a un combo box.
+
+		example:    {
+				      "name": "opciones",
+				      "type": "combo",
+				      "size": "50",
+				      "catalog": {
+				        "name": "cat_opciones",
+				        "type":"db",
+				        "list": [
+				          {
+				            
+				            "val": "opcion1"
+				          },
+				          {
+				            
+				            "val": "opcion2"
+				          }
+				        ]
+				      }
+				    }
+	catalog:
+		attrs: name, type, size, list : [{"val"}]
+
+		Un catalog se embebe dentro de un control que requiera una lisa
+		de valores, tal como un combo, una lista de selects u options.
+
+		example: "catalog":{
+						        "name": "cat_opciones",
+						        "type":"db",
+						        "list": [
+						          {
+						            
+						            "val": "opcion1"
+						          },
+						          {
+						            
+						            "val": "opcion2"
+						          }
+						        ]
+					        }
+	especial:
+		attrs: name, type, size, especial_generator, especial_generator_path
+
+		Genera un campo con un tipo de dato creado por nosotros, tal como:
+			- Generador de Id
+			- Dato encriptado por script externo
+			- Datos generado por scripts o software externo
+
+		especial_generator -> script o software que genera el dato
+		especial_generator_path -> ubicacion del generador de datos
+
+		example:    {
+				      "name": "winplus_id",
+				      "type": "especial",
+				      "size": "35",
+				      "especial_generator": "pauta.py",
+				      "especial_generator_path":"C:\\Users\\enrique.nieto\\Documents\\develops\\NewsM\\kernel\\especial"
+				    }
+
+
+	text_single:
+		attrs: name, type, size
+
+		Crea un campo de texto sencillo
+
+		example:{
+			      "name": "cuco",
+			      "type": "text_single",
+			      "size": "50"
+			    }
+
+	textarea:
+		attrs: name, type, size
+
+		Es conveniente para campos de texto largos.
+
+		example:{
+			      "name": "Mensaje",
+			      "type": "textarea",
+			      "size": "390"
+			    }
+	submit:
+		attrs: name, type, size
+
+		Este tipo solamente va una vez, y se usa para cerrar el formulario.
+		Si la aplicación ocupa botones, se usara el dato button
+
+		example:{
+			      "name": "Send",
+			      "type": "submit",
+			      "size": "20"
+			    }

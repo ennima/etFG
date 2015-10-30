@@ -14,10 +14,11 @@
   },
   "content": [
     {
-      "name": "Name",
-      "type": "text_single",
-      "size": "20",
-      "placeholder": "Nombre"
+      "name": "winplus_id",
+      "type": "especial",
+      "size": "35",
+      "especial_generator": "pauta.py",
+      "especial_generator_path":"C:\\Users\\enrique.nieto\\Documents\\develops\\NewsM\\kernel\\especial"
     },
     {
       "name": "email",

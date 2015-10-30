@@ -167,6 +167,12 @@ def backend_php():
 	crud_delete ="DELETE FROM `test` WHERE `Name` = 'name'"	
 
 def db_mongo_node():
+	if(os.path.exists(path_models)):
+		print("Mongo_node Models Dir ok")
+	else:
+		os.mkdir(path_models)
+
+	
 	connect_js = "var mongoose = require('mongoose');\n"
 	connect_js += "mongoose.connect('mongodb://"+proy['config']['db_server']+"/"+proy['config']['db_name']+"');\n"
 
@@ -176,13 +182,21 @@ def db_mongo_node():
 	connect_js += "	console.log('open db');\n"
 	connect_js += "});"
 	
-	print connect_js
+	#print connect_js
+	f = open(path_models+"connect.js","w")
+	f.write(connect_js)
+	f.close()
 
-
+	mongoose_schema = "var mongoose = require('mongoose');\nvar Schema = mongoose.Schema;\n"
+	schemaName = proy['name'].lower()+"_schema"
+	mongoose_schema += "var "+schemaName+" = new Schema({\n"
+	
+	print (mongoose_schema)
 proy = loadForm("proy2.json")
 print(proy['name'])
 pathValidation()
 path_sql = proy['config']['local_store']+"sql\\"
+path_models = proy['config']['local_store']+"models\\"
 insert_header = ""
 php_credits ="/*****************************\n 	Developer:"+proy['config']['developer']+"\n 	Agency:Miru Interactive \n******************************/\n\n"
 
