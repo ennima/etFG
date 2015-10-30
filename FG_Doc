@@ -6,7 +6,7 @@ Data types
 		attrs: name, type, value
 
 		Crea un boton con su handler.
-
+		Value: Define el texto del botón
 		example:   {
 				      "name": "choose",
 				      "type": "button",
@@ -42,6 +42,8 @@ Data types
 		Un catalog se embebe dentro de un control que requiera una lisa
 		de valores, tal como un combo, una lista de selects u options.
 
+		val: String, int, bool
+
 		example: "catalog":{
 						        "name": "cat_opciones",
 						        "type":"db",
@@ -67,6 +69,8 @@ Data types
 		especial_generator -> script o software que genera el dato
 		especial_generator_path -> ubicacion del generador de datos
 
+		El valor generado usualmente debe ser String
+
 		example:    {
 				      "name": "winplus_id",
 				      "type": "especial",
@@ -81,6 +85,8 @@ Data types
 
 		Crea un campo de texto sencillo
 
+		Val: String
+
 		example:{
 			      "name": "cuco",
 			      "type": "text_single",
@@ -91,6 +97,8 @@ Data types
 		attrs: name, type, size
 
 		Es conveniente para campos de texto largos.
+
+		val: String
 
 		example:{
 			      "name": "Mensaje",
@@ -103,6 +111,7 @@ Data types
 		Este tipo solamente va una vez, y se usa para cerrar el formulario.
 		Si la aplicación ocupa botones, se usara el dato button
 
+		name: String define el texto del boton
 		example:{
 			      "name": "Send",
 			      "type": "submit",
