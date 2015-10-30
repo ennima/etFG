@@ -1,5 +1,6 @@
 import json,os
 
+
 def loadForm(jsonf):
 	f = open(jsonf)
 	j = json.load(f)
@@ -165,7 +166,20 @@ def backend_php():
 
 	crud_delete ="DELETE FROM `test` WHERE `Name` = 'name'"	
 
-proy = loadForm("proy.json")
+def db_mongo_node():
+	connect_js = "var mongoose = require('mongoose');\n"
+	connect_js += "mongoose.connect('mongodb://"+proy['config']['db_server']+"/"+proy['config']['db_name']+"');\n"
+
+	connect_js += "var db = mongoose.connection;\n"
+	connect_js += "db.on('error', console.error.bind(console, 'connection error'));\n"
+	connect_js += "db.once('open', function (callback){\n"
+	connect_js += "	console.log('open db');\n"
+	connect_js += "});"
+	
+	print connect_js
+
+
+proy = loadForm("proy2.json")
 print(proy['name'])
 pathValidation()
 path_sql = proy['config']['local_store']+"sql\\"
@@ -178,8 +192,14 @@ if(proy['config']['db'] == "mysql"):
 
 elif(proy['config']['db'] == "mongo"):
 	print("Rendering Mongo Schema and CRUD functions")
+	if(proy['config']['backend']=="node"):
+		print("Making Mongoose schemas")
+		db_mongo_node()
 
 elif(proy['config']['db'] == "email"):
+	print("Rendereando envio por mail")
+
+elif(proy['config']['db'] == "json"):
 	print("Rendereando envio por mail")
 	
 if(proy['config']['backend']=="php"):

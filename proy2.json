@@ -1,0 +1,75 @@
+{
+  "name": "Pauta",
+  "config": {
+    "db": "mongo",
+    "db_version":"2.6",
+    "db_name": "news_m",
+    "db_server": "127.0.0.1",
+    "db_user": "",
+    "db_pass": "",
+    "developer": "ennima1",
+    "frontend": "html",
+    "backend": "node",
+    "local_store": "C:\\Users\\enrique.nieto\\Documents\\develops\\NewsM\\kernel\\"
+  },
+  "content": [
+    {
+      "name": "Name",
+      "type": "text_single",
+      "size": "20",
+      "placeholder": "Nombre"
+    },
+    {
+      "name": "email",
+      "type": "text_single",
+      "size": "50"
+    },
+    {
+      "name": "choose",
+      "type": "button",
+      "value": "choose..."
+    },
+    {
+      "name": "cuco",
+      "type": "text_single",
+      "size": "50"
+    },
+    {
+      "name": "opciones",
+      "type": "combo",
+      "size": "50",
+      "catalog": {
+        "name": "cat_opciones",
+        "type":"db",
+        "list": [
+          {
+            
+            "val": "opcion1"
+          },
+          {
+            
+            "val": "opcion2"
+          },
+          {
+            
+            "val": "opcion 3"
+          },
+          {
+            
+            "val": "opcion4  d"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mensaje",
+      "type": "textarea",
+      "size": "390"
+    },
+    {
+      "name": "Send",
+      "type": "submit",
+      "size": "20"
+    }
+  ]
+}
