@@ -42,7 +42,11 @@ Data types
 		Un catalog se embebe dentro de un control que requiera una lisa
 		de valores, tal como un combo, una lista de selects u options.
 
-		val: String, int, bool
+		val: String
+		type: 
+			- db: Crea una tabla dentro de la db e inserta los valores
+			- ui: Agrega en el html las opciones
+			
 
 		example: "catalog":{
 						        "name": "cat_opciones",
@@ -116,6 +120,19 @@ Data types
 			      "type": "textarea",
 			      "size": "390"
 			    }
+
+
+	time: 
+		attrs: name, type, value
+
+		Genera un time picker y almacena un valor date en la db.
+		value: Indica la forma en la que se tomará el valor
+				- Input: El usuario debe introducir el dato
+				- Now: Al insertar un registro se introduce la hora actual
+				- Default: Asigna un valor por default ej.Default:20:30:50
+
+
+
 	submit:
 		attrs: name, type, size
 
@@ -129,11 +146,3 @@ Data types
 			      "size": "20"
 			    }
 
-	time: 
-		attrs: name, type, value
-
-		Genera un time picker y almacena un valor date en la db.
-		value: Indica la forma en la que se tomará el valor
-				- Input: El usuario debe introducir el dato
-				- Now: Al insertar un registro se introduce la hora actual
-				- Default: Asigna un valor por default ej.Default:20:30:50

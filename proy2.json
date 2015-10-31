@@ -33,7 +33,7 @@
     {
       "name": "Hora_Inicio",
       "type": "time",
-      "size": "Input"
+      "value": "Input"
     },
     {
       "name": "opciones",

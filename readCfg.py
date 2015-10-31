@@ -191,11 +191,95 @@ def db_mongo_node():
 	schemaName = proy['name'].lower()+"_schema"
 	modelName = proy['name'].lower().title()+"s"
 	mongoose_schema += "var "+schemaName+" = new Schema({\n"
+	index = 0
+	catalog_schema = []
+	catalog_index = 0
 	for field in proy['content']:
 		print field['type']
+		#print ("#-> "+mongoose_schema)
 		if(field['type']=='button'):
 			pass
-		elif(field['type']=='button'):
+		elif(field['type']=='combo'):
+			mongoose_schema += field['name'].lower()+":String"
+			
+			if('catalog' in field.keys()):
+				if(field['catalog']['type'] == "db"):
+					print("Rendereando catalog DB mongo....")
+					catalog_temp = "var mongoose = require('mongoose');\nvar Schema = mongoose.Schema;\n"
+					catalog_temp += "var "+field['catalog']['name']+"Schema = new Schema({\n"
+					
+					#for cat_field in field['catalog']['list']:
+					#	print cat_field
+					catalog_temp += "	val:[String]\n"
+					catalog_temp += "});\nvar "+field['catalog']['name'].title()+" = mongoose.model('"+field['catalog']['name']+"', "+field['catalog']['name']+"Schema);"
+					print(catalog_temp)
+					print("END Rendereando catalog...")
+			else:
+				print ("No catalog")
+
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+		
+		
+
+		elif(field['type']=='date'):
+			if(field['value']=='Input'):
+				mongoose_schema += field['name'].lower()+":Date"
+			elif(field['value']=='Now'):
+				mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
+			elif('Default' in field['value']):
+				#mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
+				default_val = field['value'].split(":")
+				print default_val
+				mongoose_schema += field['name'].lower()+":{type: Date, default: "+default_val[1]+"}"
+			
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+
+		elif(field['type']=='especial'):
+			mongoose_schema += field['name'].lower()+":String"
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+
+		elif(field['type']=='text_single'):
+			mongoose_schema += field['name'].lower()+":String"
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+
+		elif(field['type']=='textarea'):
+			mongoose_schema += field['name'].lower()+":String"
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+
+		elif(field['type']=='time'):
+			if(field['value']=='Input'):
+				mongoose_schema += field['name'].lower()+":Date"
+			elif(field['value']=='Now'):
+				mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
+			elif('Default' in field['value']):
+				#mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
+				default_val = field['value'].split(":")
+				print default_val
+				mongoose_schema += field['name'].lower()+":{type: Date, default: "+default_val[1]+"}"
+			
+			if(proy['content'][index+1]['type'] == 'submit'):
+				mongoose_schema += "\n"
+			else:
+				mongoose_schema += ",\n"
+		elif(field['type']=='submit'):
+			pass
+
+		index += 1
 
 	mongoose_schema += "});\n"
 	mongoose_schema += "mongoose.model('"+modelName+"', "+schemaName+");"
