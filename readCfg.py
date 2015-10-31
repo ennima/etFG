@@ -212,9 +212,12 @@ def db_mongo_node():
 						#print cat_field['val']
 						catalog_values.append(cat_field['val'])
 					
-					catalog_temp += "	val:[String]\n"
+					catalog_temp += "	val:String\n"
 					catalog_temp += "});\nvar "+field['catalog']['name'].title()+" = mongoose.model('"+field['catalog']['name']+"', "+field['catalog']['name']+"Schema);"
 					print(catalog_temp)
+					f = open(path_models+field['catalog']['name'].lower()+".js","w")
+					f.write(catalog_temp)
+					f.close()
 					print("END Rendereando catalog...")
 
 					#creando el insert py
@@ -298,6 +301,9 @@ def db_mongo_node():
 	mongoose_schema += "});\n"
 	mongoose_schema += "mongoose.model('"+modelName+"', "+schemaName+");"
 	print (mongoose_schema)
+	f = open(path_models+modelName.lower()+".js","w")
+	f.write(mongoose_schema)
+	f.close()
 proy = loadForm("proy2.json")
 print(proy['name'])
 pathValidation()
