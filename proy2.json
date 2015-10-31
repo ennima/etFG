@@ -3,7 +3,7 @@
   "config": {
     "db": "mongo",
     "db_version":"2.6",
-    "db_name": "news_m",
+    "db_name": "testM1a",
     "db_server": "127.0.0.1",
     "db_user": "",
     "db_pass": "",
@@ -40,7 +40,7 @@
       "type": "combo",
       "size": "50",
       "catalog": {
-        "name": "cat_opciones",
+        "name": "cat_opciones1",
         "type":"db",
         "list": [
           {

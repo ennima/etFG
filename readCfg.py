@@ -207,13 +207,27 @@ def db_mongo_node():
 					print("Rendereando catalog DB mongo....")
 					catalog_temp = "var mongoose = require('mongoose');\nvar Schema = mongoose.Schema;\n"
 					catalog_temp += "var "+field['catalog']['name']+"Schema = new Schema({\n"
+					catalog_values = []
+					for cat_field in field['catalog']['list']:
+						#print cat_field['val']
+						catalog_values.append(cat_field['val'])
 					
-					#for cat_field in field['catalog']['list']:
-					#	print cat_field
 					catalog_temp += "	val:[String]\n"
 					catalog_temp += "});\nvar "+field['catalog']['name'].title()+" = mongoose.model('"+field['catalog']['name']+"', "+field['catalog']['name']+"Schema);"
 					print(catalog_temp)
 					print("END Rendereando catalog...")
+
+					#creando el insert py
+					insert_py = "from pymongo import MongoClient\nclient = MongoClient()\n"
+					insert_py += "db = client."+proy['config']['db_name']+"\n"
+					insert_py += "arr = "+str(catalog_values)+"\nfor val in arr:\n"
+					insert_py += "	exist = db."+field['catalog']['name']+".find_one({'val':val})\n"
+					insert_py += "	if(exist == None):\n"
+					insert_py += "		result = db."+field['catalog']['name']+".insert({'val':val})"
+					print ("\n#Py_insert: \n"+insert_py+"\n")
+					f = open(path_models+"insert_"+field['catalog']['name']+".py","w")
+					f.write(insert_py)
+					f.close()
 			else:
 				print ("No catalog")
 
