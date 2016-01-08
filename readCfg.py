@@ -148,7 +148,7 @@ def backend_php():
 	#print(requestVars_array)
 
 	#Make CRUD Qeryes
-	query_values = ""
+	query_values  = ""
 	for i in range(0,len(requestVars_array)):
 		#print("i: ",i,"  val: ",requestVars_array[i])
 		query_values+="\"'."+requestVars_array[i]+".'\""
