@@ -9,7 +9,8 @@
     "developer": "ennima1",
     "frontend": "html",
     "backend": "php",
-    "local_store": "C:\\xampp\\htdocs\\formGen\\"
+    "local_store": "C:\\xampp\\htdocs\\formGen\\",
+    "local_frontend_template":"templates\\"
   },
   "content": [
     {

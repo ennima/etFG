@@ -336,6 +336,16 @@ elif(proy['config']['backend']=="node"):
 
 if(proy['config']['frontend']=="html"):
 	print("Rendering Html Form")
+	print("BAse: ",os.path.isabs(proy['config']['local_frontend_template'])," - ",proy['config']['local_frontend_template'])
+	if (os.path.isabs(proy['config']['local_frontend_template'])):
+		path = proy['config']['local_frontend_template']
+	else:
+		path = os.getcwd()+"\\"+proy['config']['local_frontend_template']
+	if(os.path.exists(path)):
+		print("Template Dir Ok ", path)
+	else:
+		print("No template dir ", path)
+		os.makedirs(path)
 
 elif(proy['config']['frontend']=="ejs"):
 	print("Rendering Ejs Form View")
