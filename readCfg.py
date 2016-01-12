@@ -195,7 +195,7 @@ def db_mongo_node():
 	catalog_schema = []
 	catalog_index = 0
 	for field in proy['content']:
-		print field['type']
+		print (field['type'])
 		#print ("#-> "+mongoose_schema)
 		if(field['type']=='button'):
 			pass
@@ -249,7 +249,7 @@ def db_mongo_node():
 			elif('Default' in field['value']):
 				#mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
 				default_val = field['value'].split(":")
-				print default_val
+				print (default_val)
 				mongoose_schema += field['name'].lower()+":{type: Date, default: "+default_val[1]+"}"
 			
 			if(proy['content'][index+1]['type'] == 'submit'):
@@ -286,7 +286,7 @@ def db_mongo_node():
 			elif('Default' in field['value']):
 				#mongoose_schema += field['name'].lower()+":{type: Date, default: Date.now}"
 				default_val = field['value'].split(":")
-				print default_val
+				print (default_val)
 				mongoose_schema += field['name'].lower()+":{type: Date, default: "+default_val[1]+"}"
 			
 			if(proy['content'][index+1]['type'] == 'submit'):
@@ -304,7 +304,7 @@ def db_mongo_node():
 	f = open(path_models+modelName.lower()+".js","w")
 	f.write(mongoose_schema)
 	f.close()
-proy = loadForm("proy2.json")
+proy = loadForm("proy.json")
 print(proy['name'])
 pathValidation()
 path_sql = proy['config']['local_store']+"sql\\"
